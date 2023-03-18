@@ -36,13 +36,20 @@ def make_scientists():
 
 
 planets_list = [
-    {"name": "Mercury", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mercury.png"},
-    {"name": "Venus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/venus.png"},
-    {"name": "Mars", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mars.png"},
-    {"name": "Jupitor", "image": "https://nineplanets.org/wp-content/uploads/2019/09/jupiter.png"},
-    {"name": "Saturn", "image": "https://nineplanets.org/wp-content/uploads/2019/09/saturn.png"},
-    {"name": "Uranus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/uranus.png"},
-    {"name": "Neptune", "image": "https://nineplanets.org/wp-content/uploads/2019/09/neptune.png"},
+    {"name": "Mercury", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mercury.png",
+        "distance": "10000 miles"},
+    {"name": "Venus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/venus.png",
+        "distance": "15000 miles"},
+    {"name": "Mars", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mars.png",
+        "distance": "200000 miles"},
+    {"name": "Jupitor", "image": "https://nineplanets.org/wp-content/uploads/2019/09/jupiter.png",
+        "distance": "30000 miles"},
+    {"name": "Saturn", "image": "https://nineplanets.org/wp-content/uploads/2019/09/saturn.png",
+        "distance": "400000 miles"},
+    {"name": "Uranus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/uranus.png",
+        "distance": "5555555 miles"},
+    {"name": "Neptune", "image": "https://nineplanets.org/wp-content/uploads/2019/09/neptune.png",
+        "distance": "7000000 miles"},
 ]
 stars_list = ["Sirius", "Antares", "Betelgeuse",
               "Iota Draconis", "Theta Lionis", "Hamal"]
@@ -57,7 +64,7 @@ def make_planets():
     for planet_dict in planets_list:
         planet = Planet(
             name=planet_dict["name"],
-            distance_from_earth=randint(1, 10),
+            distance_from_earth=planet_dict["distance"],
             nearest_star=rc(stars_list),
             image=planet_dict["image"]
         )
