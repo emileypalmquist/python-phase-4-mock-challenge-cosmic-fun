@@ -36,19 +36,19 @@ def make_scientists():
 
 
 planets_list = [
-    {"name": "Mercury", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mercury.png",
+    {"name": "Mercury", "image": "planet1",
         "distance": "10000 miles"},
-    {"name": "Venus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/venus.png",
+    {"name": "Venus", "image": "planet2",
         "distance": "15000 miles"},
-    {"name": "Mars", "image": "https://nineplanets.org/wp-content/uploads/2019/09/mars.png",
+    {"name": "Mars", "image": "planet3",
         "distance": "200000 miles"},
-    {"name": "Jupitor", "image": "https://nineplanets.org/wp-content/uploads/2019/09/jupiter.png",
+    {"name": "Jupitor", "image": "planet4",
         "distance": "30000 miles"},
-    {"name": "Saturn", "image": "https://nineplanets.org/wp-content/uploads/2019/09/saturn.png",
+    {"name": "Saturn", "image": "planet5",
         "distance": "400000 miles"},
-    {"name": "Uranus", "image": "https://nineplanets.org/wp-content/uploads/2019/09/uranus.png",
+    {"name": "Uranus", "image": "planet6",
         "distance": "5555555 miles"},
-    {"name": "Neptune", "image": "https://nineplanets.org/wp-content/uploads/2019/09/neptune.png",
+    {"name": "Neptune", "image": "planet7",
         "distance": "7000000 miles"},
 ]
 stars_list = ["Sirius", "Antares", "Betelgeuse",
@@ -84,7 +84,7 @@ def make_missions():
 
     for i in range(20):
         mission = Mission(
-            name=fake.slug(),
+            name=fake.unique.text(max_nb_chars=20),
             scientist_id=rc(scientists)[0],
             planet_id=rc(planets)[0]
         )
