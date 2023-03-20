@@ -14,6 +14,8 @@ db = SQLAlchemy(metadata=metadata)
 class Mission(db.Model, SerializerMixin):
     __tablename__ = 'missions'
 
+    serialize_rules = ('-planet', '-scientist',)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     scientist_id = db.Column(db.Integer, db.ForeignKey('scientists.id'))
@@ -23,7 +25,7 @@ class Mission(db.Model, SerializerMixin):
         db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
     # scientist = db.relationship('Scientist', back_populates='missions')
-    # planet = db.
+
     @validates('name')
     def validates_name(self, key, value):
         if not value:
@@ -59,6 +61,8 @@ class Mission(db.Model, SerializerMixin):
 class Scientist(db.Model, SerializerMixin):
     __tablename__ = 'scientists'
 
+    serialize_rules = ('-missions', '-created_at', '-updated_at', )
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     field_of_study = db.Column(db.String, nullable=False)
@@ -83,12 +87,15 @@ class Scientist(db.Model, SerializerMixin):
             raise ValueError('Field of study must be provided.')
         return value
 
-    missions = db.relationship('Mission', backref='scientist')
+    missions = db.relationship(
+        'Mission', backref='scientist', cascade="all, delete, delete-orphan")
     planets = association_proxy('missions', 'planet')
 
 
 class Planet(db.Model, SerializerMixin):
     __tablename__ = 'planets'
+
+    serialize_rules = ('-missions', '-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
@@ -99,5 +106,5 @@ class Planet(db.Model, SerializerMixin):
     updated_at = db.Column(
         db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
-    # missions = db.relationship('Mission', backref='planet')
+    missions = db.relationship('Mission', backref='planet')
     scientists = association_proxy('missions', 'scientist')
